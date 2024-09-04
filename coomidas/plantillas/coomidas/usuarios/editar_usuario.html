@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends "index.html" %}
+    {% load static %}
+    {% block boton_pagina %}
+    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">Editar perfil</a>
+    {% endblock %}
+    {% block contenidoACambiar%}
+    <h1 id="ancla">usuario a editar {{usuario}}</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <table>
+            {{ mi_form.as_table }}
+        </table>
+        <input type="submit" value="Actualizar">
+
+    </form>
+    {% if usuario == datos_finales_usuario.nombre %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Guardar cambios">
+    </form>
+    {% endif %}
+    <button><a href="{% url 'perfil' %}">volver a perfil </a></button>
+
+    {% endblock %}
+</body>
+</html>

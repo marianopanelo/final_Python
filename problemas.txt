@@ -1,0 +1,21 @@
+cuando logueas entra bien a la pagina del perfil 
+pero si apretas enter te da erorr xq queda guardado el html de 
+http://127.0.0.1:8000/login/ (si cambias la pagina se arregla , pero esta ese error )
+y no el de 
+http://127.0.0.1:8000/perfil/
+
+
+lo mismo pasa con 
+http://127.0.0.1:8000/logout/
+y con 
+http://127.0.0.1:8000/registro/
+funcionan bien , pero cuando redirigen , te deja ese html
+en el buscador y te da eror si le das enter xq no tienen metodo get
+
+si voy a 
+http://127.0.0.1:8000/perfil_rellenar/
+cuando ya esta relleno con el nombre y apellido me crea
+otro perfil 
+
+
+lo de editar el nombre y el apellido de la persona 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends "index.html" %}
+    {% load static %}
+    {% block boton_pagina %}
+    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">editar recetas</a>
+    {% endblock %}
+    {% block contenidoACambiar%}
+    <form action="" method="POST" id="ancla">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <input type="submit" value="Enviar">
+
+    </form>
+    <button><a href="{% url 'recetas_vistas' %}">volver a recetas </a></button>
+
+    {% endblock %}
+</body>
+</html>

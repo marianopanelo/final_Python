@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de comentarios</title>
+</head>
+<body>
+    {% extends "index.html" %}
+    {% load static %}
+    {% block boton_pagina %}
+    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">Lista de comentarios</a>
+    {% endblock %}
+    {% block contenidoACambiar %}
+    <h2 id="ancla">Lista de comentarios</h2>
+    <div>
+        <ul>
+            {% for comentario in object_list %}
+                <li>
+                    <p>COMENTARIO CREADO POR: <br> {{ comentario.nombre_usuario }}</p>
+                    <p>NOMBRE RECETA: <br> {{ comentario.nombre_receta }}</p>
+                    <p>PUNTAJE RECETA: <br> {{ comentario.puntaje }}</p>
+                    <p>Comentario: <br> {{ comentario.comentario }}</p>
+                    <p>Fecha del comentario: <br> {{ comentario.fecha_comentario }}</p>
+                    <p>{% if user.username == comentario.nombre_usuario or user.username == 'mariano' %}</p>
+
+                        <button><a href="{% url 'editar_comentario' comentario.id %}">Editar</a></button>
+                        <button><a href="{% url 'eliminar_comentario' comentario.id %}">Borrar</a></button>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No hay comentarios disponibles.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends "index.html" %}
+    {% load static %}
+    {% block boton_pagina %}
+    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">agregar receta</a>
+    {% endblock %}
+    {% block contenidoACambiar%}
+    <h2>agregar receta</h2>
+    <div class="container mt-5" id="ancla">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Agregar receta</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username:</label>
+                                <input type="hidden" id="username" name="username" value="{{ user.username }}">
+                                <p class="form-control-static">{{ user.username }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">nombre de receta:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ingredientes" class="form-label">Ingredientes:</label>
+                                <textarea class="form-control" id="ingredientes" name="ingredientes" rows="5" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="preparacion" class="form-label">Preparación:</label>
+                                <textarea class="form-control" id="preparacion" name="preparacion" rows="4" required></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dificultad" class="form-label">Dificultad (elija un número de 1 a 10):</label>
+                            <input type="number" class="form-control" id="dificultad" name="dificultad" min="1" max="10" step="0.1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="resumen_de_la_receta" class="form-label">descripcion de el postre:</label>
+                            <input type="text" class="form-control" id="resumen_de_la_receta" name="resumen_de_la_receta" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Si tiene, suba una imagen:</label>
+                            <input type="file" class="form-control" id="imagen" name="imagen">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

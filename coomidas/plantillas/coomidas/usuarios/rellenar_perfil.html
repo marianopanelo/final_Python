@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends "index.html" %}
+    {% load static %}
+    {% block boton_pagina %}<!--aca le tengo q poner el ancla a lo primero asi cuando toco va a esa parte-->
+    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">nosotros</a>
+    {% endblock %}
+    {% block contenidoACambiar%}
+    <div class="container mt-5" id="ancla">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido" class="form-label">Apellido:</label>
+                                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username:</label>
+                                <input type="hidden" id="username" name="username" value="{{ user.username }}">
+                                <p class="form-control-static">{{ user.username }}</p>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <button><a href="{% url 'perfil' %}">volver a perfil </a></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
+
+
+

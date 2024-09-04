@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends "index.html" %}
+    {% load static %}
+    {% block boton_pagina %}
+    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">receta de <i>{{ recetas.nombre }}</i></a>
+    {% endblock %}
+    {% block contenidoACambiar%}
+    <div id="ancla">
+        <p>receta creada por: <br><i>{{recetas.username}}</i></p>
+        <p>nombre:<br> <i>{{ recetas.nombre }}</i></p>
+        <p>fecha que se subio: <br><i>{{ recetas.fecha }}</i></p>
+        <pre>ingredientes: <br><i>{{ recetas.ingredientes }}</i></pre>
+        <p>preparacion:<br> <i>{{ recetas.preparacion }}</i></p>
+        <p>dificultad:<br> <i>{{ recetas.dificultad }}</i></p>
+        <p>resumen de la receta: <br><i>{{ recetas.resumen_de_la_receta }}</i></p>
+        <p>Imagen:<br></p>
+        {% if recetas.imagen %}
+            <img src="{{ recetas.imagen.url }}" alt="Imagen de la receta" style="max-width: 100%; height: auto;">
+        {% else %}
+            <p>No hay imagen disponible.</p>
+        {% endif %}
+        <p>
+            <button><a href="{% url 'recetas_vistas' %}">volver a recetas </a></button>
+        </p>  
+    </div>  
+
+    {% endblock %}
+</body>
+</html>

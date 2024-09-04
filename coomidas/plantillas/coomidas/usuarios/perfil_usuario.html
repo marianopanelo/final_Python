@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+</head>
+<body>
+    {% extends "index.html" %}
+    {% load static %}
+    
+    {% block boton_pagina %}
+    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">Mi perfil</a>
+    {% endblock %}
+    
+    {% block contenidoACambiar %}
+    <h2 id="ancla">Perfil de {{ user.username }}</h2>
+    
+    {% if user %}
+        {% if datos_finales_usuario %}
+            <p>Nombre: {{ datos_finales_usuario.nombre }}</p>
+            <p>Apellido: {{ datos_finales_usuario.apellido }}</p>
+            <a class="nav-link" href="{% url 'recetas_crear' %}"><button>Agregar Recetas</button></a>
+            <a class="nav-link" href="{% url 'editar_perfil' %}"><button>editar username u email</button></a>
+            <a class="nav-link" href="{% url 'editar_nombre_apellido' %}"><button>editar nombre u apellido</button></a>
+            <a class="nav-link" href="{% url 'eliminar_perfil' %}"><button>eliminar perfil</button></a>
+        {% else %}
+            <h2>Ya puedes ver recetas</h2>
+            <a class="nav-link" href="{% url 'Terminar_de_rellenar_perfil' %}"><button>para poder agregar tus recetas termina el formulario aca</button></a>
+            <a class="nav-link" href="{% url 'editar_perfil' %}"><button>editar username u email</button></a>
+        {% endif %}
+    {% endif %}
+    
+    {% endblock %}
+</body>
+</html>
