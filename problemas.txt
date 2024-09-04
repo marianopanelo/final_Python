@@ -17,5 +17,3 @@ http://127.0.0.1:8000/perfil_rellenar/
 cuando ya esta relleno con el nombre y apellido me crea
 otro perfil 
 
-
-lo de editar el nombre y el apellido de la persona 
