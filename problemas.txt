@@ -17,3 +17,5 @@ http://127.0.0.1:8000/perfil_rellenar/
 cuando ya esta relleno con el nombre y apellido me crea
 otro perfil 
 
+cuando elimino el usuario queda el cartelito como si estes logueado
+, es solo actualizar la pagina

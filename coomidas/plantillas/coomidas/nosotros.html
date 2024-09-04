@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Nosotros</title>
 </head>
 <body>
+    
     {% extends "index.html" %}
     {% load static %}
     {% block boton_pagina %}
-    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">nosotros</a>
+    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#ancla">Nosotros</a>
     {% endblock %}
     {% block contenidoACambiar%}
-    <p id="ancla">nosotros</p>
+    <div class="container" id="ancla">
+        <div class="content">
+            <h2>¡Hola y bienvenidos!</h2>
+            <p>Soy Panelo Mariano. En mi viaje de aprendizaje en programación, he trabajado en una variedad de proyectos que van desde el desarrollo web hasta la creación de aplicaciones personalizadas. Aunque disfruto del desarrollo web en general, me inclino más hacia el backend, donde encuentro gran satisfacción en diseñar y construir la lógica y la infraestructura que soportan las aplicaciones.</p>
+            <p>Mi enfoque en el desarrollo de software se basa en la precisión y la atención al detalle, cualidades que he cultivado a lo largo de mi carrera. Estoy comprometido con el aprendizaje continuo y la mejora constante, y siempre busco nuevas oportunidades para aplicar mis conocimientos en programación y ofrecer valor a los usuarios a través de soluciones tecnológicas bien diseñadas.</p>
+            <p>¡Gracias por visitarnos y espero que encuentres la receta que buscas en nuestro sitio!</p>
+        </div>
+    </div>
     {% endblock %}
 </body>
 </html>

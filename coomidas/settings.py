@@ -128,4 +128,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/coomidas/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'coomidas/media')
 
-#LOGIN_URL = "/usuario/ingrear/" aca poner para que loguee o ingrese secion
+LOGIN_URL = "/login/"

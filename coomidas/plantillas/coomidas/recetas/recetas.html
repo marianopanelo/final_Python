@@ -13,6 +13,7 @@
     {% endblock %}
     {% block contenidoACambiar %}
     <h2 id="ancla">Lista de Recetas</h2>
+    <h2>para agregar recetas tiene que entrar a su perfil</h2>
     <div>
         <ul>
             {% for receta in object_list %}
@@ -28,9 +29,10 @@
                     {% endif %}
                     <p>
                         <button><a href="{% url 'Detalle_receta' receta.id %}">Ver</a></button>
+                        <button><a href="{% url 'comentario_crear' receta.id %}">comentar receta </a></button>
+
                         <!--aca le tengo q pasar un if , si el nombre q aparece en-->
                         <p>{% if user.username == receta.username or user.username == 'mariano' %}</p>
-                        <button><a href="{% url 'comentario_crear' receta.id %}">comentar receta </a></button>
                         <button><a href="{% url 'recetas_modificar' receta.id %}">Editar</a></button>
                         <button><a href="{% url 'recetas_eliminar' receta.id %}">Borrar</a></button>
                         {% endif %}

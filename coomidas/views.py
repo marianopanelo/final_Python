@@ -8,9 +8,13 @@ from django.contrib.auth import login , authenticate
 from coomidas.forms_usuario import Crear_usuario , editar_usuario,Final_formulario_perfil,editar_formulario_perfil
 from coomidas.models import Recetas , Usuario_perfil ,Comentarios
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 def inicio(request):
     return render(request, 'index.html', {"user": request.user})
+
 
 def agregar_usuario(request):
     
@@ -32,7 +36,6 @@ def agregar_usuario(request):
 
     form = Crear_usuario()     
     return render(request,"usuarios/agregar_usuario.html" ,  {"form":form, "msg_register": msg_register})
-
 
 
 def login_usuario(request):
@@ -57,15 +60,14 @@ def login_usuario(request):
     return render(request, "usuarios/loguin.html", {"form": form, "msg_login": msg_login})
 
 
-
-
+@login_required
 def perfil(request):
     
     usuario = Usuario_perfil.objects.filter(username=request.user.username).first()
     return render(request , 'usuarios/perfil_usuario.html', {"datos_finales_usuario": usuario})
 
 
-
+@login_required
 def terminar_de_rellenar_perfil(req):
     """
     Vista para crear nuevas recetas a través de un formulario.
@@ -86,22 +88,7 @@ def terminar_de_rellenar_perfil(req):
     return render(req , 'usuarios/rellenar_perfil.html',{"formulario": miFormulario})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@login_required
 def editar_perfil(request):
     """
     Función de vista para manejar la edición del perfil de usuario.
@@ -128,6 +115,7 @@ def editar_perfil(request):
     return render(request, "usuarios/editar_usuario.html", {"mi_form": miFormulario, "usuario": usuario})
 
 
+@login_required
 def editar_nombre_apellido(request):
     perfil = Usuario_perfil.objects.get(username=request.user.username)
     
@@ -143,6 +131,7 @@ def editar_nombre_apellido(request):
     return render(request, 'usuarios/editar_nombre_apellido.html', {'form': form})
 
 
+@login_required
 def eliminar_perfil(request):
     if request.method == 'POST':
         usuario = request.user
@@ -160,7 +149,7 @@ def nosotros(req):
     return render(req , 'nosotros.html')
 
 
-class RecetasVistas(ListView):
+class RecetasVistas(LoginRequiredMixin ,ListView):
     """
     Vista para mostrar las recetas
     """
@@ -168,24 +157,21 @@ class RecetasVistas(ListView):
     template_name = "recetas/recetas.html"
 
 
-
-class PostreDetalle( DetailView):
+class PostreDetalle(LoginRequiredMixin , DetailView):
     """
     Vista para mostrar los detalles de un postre específico.
     """
     model = Recetas
     template_name = "recetas/receta_grende.html"
 
-    
 
-
-class RecetasCreate(CreateView):
+class RecetasCreate(LoginRequiredMixin ,CreateView):
     """
     Vista para crear nuevas recetas a través de un formulario.
     """
     model = Recetas
     template_name = "recetas/agregar_recetas.html"
-    success_url = reverse_lazy("inicio") 
+    success_url = reverse_lazy("recetas_vistas") 
     fields = ["nombre","ingredientes","preparacion","dificultad","resumen_de_la_receta","imagen","username"]
 
     def form_valid(self, form):
@@ -204,10 +190,7 @@ class RecetasCreate(CreateView):
         return super().form_valid(form)
 
 
-
-
-
-class RecetasUpdate(UpdateView):
+class RecetasUpdate(LoginRequiredMixin ,UpdateView):
     """
     Vista para editar vistas existentes a través de un formulario
     """
@@ -217,21 +200,16 @@ class RecetasUpdate(UpdateView):
     fields = ["nombre", "ingredientes", "preparacion", "dificultad", "resumen_de_la_receta", "imagen"]
 
 
-class RecetasDelete(DeleteView):
+class RecetasDelete(LoginRequiredMixin ,DeleteView):
     """
     Vista para eliminar recetas.
     """
     model = Recetas
     success_url = reverse_lazy("inicio")  
     template_name = "recetas/eliminar_receta.html"  
-    
 
 
-
-
-
-
-class ComentarioCreate(CreateView):
+class ComentarioCreate(LoginRequiredMixin ,CreateView):
     """
     Vista para crear nuevas recetas a través de un formulario.
     """
@@ -248,10 +226,7 @@ class ComentarioCreate(CreateView):
         return context
 
 
-
-
-
-class ComentariosVistas(ListView):
+class ComentariosVistas(LoginRequiredMixin ,ListView):
     """
     Vista para mostrar las recetas
     """
@@ -259,8 +234,7 @@ class ComentariosVistas(ListView):
     context_object_name = "comentarios"
     template_name = "comentarios/vista_comentarios.html"
 
-
-class ComentariosUpdate(UpdateView):
+class ComentariosUpdate(LoginRequiredMixin ,UpdateView):
     """
     Vista para editar vistas existentes a través de un formulario
     """
@@ -270,7 +244,7 @@ class ComentariosUpdate(UpdateView):
     fields = ["puntaje", "comentario"]
 
 
-class ComentariosDelete(DeleteView):
+class ComentariosDelete(LoginRequiredMixin ,DeleteView):
     """
     Vista para eliminar recetas.
     """
@@ -279,40 +253,5 @@ class ComentariosDelete(DeleteView):
     template_name = "comentarios/eliminar_comentario.html"  
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def error(request, *args, **kwargs):
     return render(request, 'error.html', status=404)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
