@@ -1,4 +1,4 @@
-from django.shortcuts import render 
+from django.shortcuts import render , redirect
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView , UpdateView , DeleteView
 from django.views.generic import ListView
@@ -30,7 +30,7 @@ def agregar_usuario(request):
             user = authenticate(username=usuario, password=contrasenia)
             login(request, user)
 
-            return render(request, "usuarios/perfil_usuario.html",{"user": user})
+            return redirect("perfil")
             
         msg_register = "Error en los datos ingresados"
 
@@ -52,7 +52,7 @@ def login_usuario(request):
             if user is not None: 
                 login(request, user)
                 usuario = Usuario_perfil.objects.filter(username=request.user.username).first()
-                return render(request, "usuarios/perfil_usuario.html",{"user": user, "datos_finales_usuario":usuario})
+                return redirect("perfil")
 
         msg_login = "Usuario o contraseña incorrectos" 
 
@@ -81,7 +81,7 @@ def terminar_de_rellenar_perfil(req):
             datos_finales_usuario = Usuario_perfil(nombre=info['nombre'], apellido=info['apellido'], username=info['username'])
             datos_finales_usuario.save()
             
-            return render (req, "usuarios/perfil_usuario.html",{"datos_finales_usuario": datos_finales_usuario})
+            return redirect("perfil")
     else: 
         miFormulario = Final_formulario_perfil()
 
@@ -103,9 +103,9 @@ def editar_perfil(request):
             perfil = Usuario_perfil.objects.get(username=username_viejo)
             perfil.username = request.POST.get('username')
             perfil.save()
-            return render(request, 'index.html')   
+            return redirect('inicio')   
         else:
-            return render(request, 'index.html')
+            return redirect('inicio')   
 
     else:  
         
@@ -124,11 +124,11 @@ def editar_nombre_apellido(request):
         
         if form.is_valid():
             form.save()
-            return render(request, 'index.html')  
+            return redirect('inicio')  
     else:
         form = editar_formulario_perfil(instance=perfil)
 
-    return render(request, 'usuarios/editar_nombre_apellido.html', {'form': form})
+    return redirect(request, 'usuarios/editar_nombre_apellido.html', {'form': form})
 
 
 @login_required
@@ -140,8 +140,8 @@ def eliminar_perfil(request):
         if Usuario_perfil.objects.get(username=usuario) :
             perfil = Usuario_perfil.objects.get(username=usuario)
             perfil.delete()
-            return render(request,'index.html')
-        return render(request,'index.html')
+            return redirect('inicio')
+        return redirect('inicio')
     return render(request,'usuarios/usuario_eliminar.html')
 
 
